@@ -22,11 +22,6 @@ import android.os.Build;
 import android.os.PatternMatcher;
 import android.provider.Settings;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.annotation.RequiresPermission;
-
 import com.thanosfisherman.wifiutils.utils.SSIDUtils;
 import com.thanosfisherman.wifiutils.utils.VersionUtils;
 import com.thanosfisherman.wifiutils.wifiConnect.ConnectionErrorCode;
@@ -37,6 +32,11 @@ import com.thanosfisherman.wifiutils.wifiWps.ConnectionWpsListener;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RequiresPermission;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
@@ -456,9 +456,9 @@ public final class ConnectorUtils {
 
         final NetworkRequest networkRequest = new NetworkRequest.Builder()
                 .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-//                .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                 .setNetworkSpecifier(wifiNetworkSpecifierBuilder.build())
-//                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                //.addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                 .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
                 .addCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
                 .build();
@@ -540,14 +540,14 @@ public final class ConnectorUtils {
 
         final NetworkRequest networkRequest = new NetworkRequest.Builder()
                 .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-//                .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                //.addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                 .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
                 .addCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
                 .setNetworkSpecifier(wifiNetworkSpecifierBuilder.build())
                 .build();
 
-//        // cleanup previous connections just in case
+        // cleanup previous connections just in case
         DisconnectCallbackHolder.getInstance().disconnect();
 
         final ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
